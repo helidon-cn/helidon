@@ -22,11 +22,10 @@
 
 == Introduction
 
-Helidon is a collection of Java libraries for writing microservices.
-There is no unique tooling or deployment model. Your microservice is
-just a Java SE application.
+Helidon是用于开发微服务的一个Java库集合。
+没有唯一的工具或部署模型。你的微服务只是一个简单的Java SE 应用程序。
 
-The foundation of Helidon is composed of three components:
+Helidon的基础由三部分组成：
 
 [PILLARS]
 ====
@@ -35,21 +34,21 @@ The foundation of Helidon is composed of three components:
 .WebServer
 [icon=settings_ethernet]
 --
-A programmatic HTTP API with reactive features, powered by Netty.
+由Netty提供支持并具有响应式功能的编程HTTP API。
 --
 
 [CARD]
 .Config
 [icon=settings]
 --
-A flexible configuration framework with support for multiple sources and formats.
+灵活的配置框架，支持多种源和格式。
 --
 
 [CARD]
 .Security
 [icon=security]
 --
-A tool-chain to handle authentication, authorization and context propagation.
+用于处理身份验证，授权和上下文传播的工具链。
 --
 ====
 

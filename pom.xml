@@ -17,7 +17,8 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.helidon</groupId>
@@ -88,8 +89,8 @@
 
         <surefire.argLine>-Xmx1024m -Dfile.encoding=UTF8</surefire.argLine>
         <failsafe.argLine>-Xmx1024m -Dfile.encoding=UTF8</failsafe.argLine>
-        <surefire.coverage.argline />
-        <failsafe.coverage.argline />
+        <surefire.coverage.argline/>
+        <failsafe.coverage.argline/>
 
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Medium</spotbugs.threshold>
@@ -932,7 +933,8 @@
                                         <compileSourceRoots>
                                             <compileSourceRoot>${project.basedir}/src/main/java</compileSourceRoot>
                                             <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
-                                            <compileSourceRoot>${project.basedir}/target/generated-sources</compileSourceRoot>
+                                            <compileSourceRoot>${project.basedir}/target/generated-sources
+                                            </compileSourceRoot>
                                         </compileSourceRoots>
                                     </configuration>
                                 </execution>
@@ -1039,7 +1041,8 @@
                                 <phase>validate</phase>
                                 <configuration>
                                     <configLocation>${top.parent.basedir}/etc/checkstyle.xml</configLocation>
-                                    <suppressionsLocation>${top.parent.basedir}/etc/checkstyle-suppressions.xml</suppressionsLocation>
+                                    <suppressionsLocation>${top.parent.basedir}/etc/checkstyle-suppressions.xml
+                                    </suppressionsLocation>
                                 </configuration>
                             </execution>
                         </executions>
@@ -1311,18 +1314,40 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+
+        <profile>
+            <id>DaoCloud-Labs-releases</id>
+            <repositories>
+                <repository>
+                    <id>labs</id>
+                    <url>http://nexus.mschina.io/nexus/content/repositories/labs/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>labs</id>
+                    <url>http://nexus.mschina.io/nexus/content/repositories/labs/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
     </profiles>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh-snapshots</id>
-            <name>Internal Helidon Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <id>labs-snapshot</id>
+            <name>Internal DaoCloud Labs Snapshot Repository</name>
+            <url>http://nexus.mschina.io/nexus/content/repositories/labs-snapshot/</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <name>Internal Helidon Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>labs</id>
+            <name>Internal DaoCloud Labs Repository</name>
+            <url>http://nexus.mschina.io/nexus/content/repositories/labs/</url>
         </repository>
     </distributionManagement>
 </project>

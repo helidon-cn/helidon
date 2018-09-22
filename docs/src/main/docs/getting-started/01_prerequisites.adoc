@@ -16,33 +16,31 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Prerequisites
+= 前置条件
 :description: Helidon pre-requisites
 :keywords: helidon
 
-Everything you need to use Helidon is listed here.
+此处列出了使用想要开始使用Helidon所需的一切。
 
-== Prerequisites
+== 先决条件
 
-Helidon requires Java 8 (or greater) and Maven. You need Docker if you
-want to build and deploy Docker containers. If you want to
-deploy to Kubernetes, you need `kubectl` and a Kubernetes cluster (you can
-<<getting-started/04_kubernetes.adoc,install one on your desktop>>). 
+Helidon需要Java 8（或更高版本）和Maven。如果要构建和部署Docker容器，你则需要学习一些Docker的知识。
+如果要将服务部署到Kubernetes，则需要`kubectl`和Kubernetes集群(您可以<<getting-started/04_kubernetes.adoc,在你电脑桌面上安装一个>>)。
 
-The following list shows the minimum versions.
+以下列表显示了最低版本要求：
 
 //[role="flex, sm7, md6, lg5"]
 [role="flex, sm7"]
 |=======
 |https://www.oracle.com/technetwork/java/javase/downloads[Java{nbsp}SE{nbsp}8] or http://jdk.java.net[Open{nbsp}JDK{nbsp}8] | {nbsp}
 |https://maven.apache.org/download.cgi[Maven 3.5] | {nbsp}
-|https://docs.docker.com/install/[Docker 18.02] | Use the Edge channel to run Kubernetes on your desktop
+|https://docs.docker.com/install/[Docker 18.02] | 使用Edge通道在桌面上运行Kubernetes
 |https://kubernetes.io/docs/tasks/tools/install-kubectl/[Kubectl 1.7.4] | {nbsp}
 |=======
 
 
 [source,bash]
-.Verify Prerequisites
+.检查环境配置
 ----
 java --version
 mvn --version
@@ -50,7 +48,7 @@ docker --version
 kubectl version --short
 ----
 
-== Setting JAVA_HOME
+== 配置 JAVA_HOME
 
 [source,bash]
 .Setting JAVA_HOME
@@ -83,7 +81,6 @@ export MAVEN_OPTS="--add-modules java.xml.bind \
 ----
 /////////////////////////////////////////////////////////////////////////////
 
-== Try the Quickstart Examples
+== 开始尝试快速开始示例
 
-Now you are ready to try the
-<<getting-started/02_base-example.adoc#Prerequisites,Quickstart Examples>>.
+现在您已准备好基础环境并可以进行尝试<<getting-started/02_base-example.adoc#Prerequisites,快速入门示例>>。

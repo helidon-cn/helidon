@@ -16,17 +16,16 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Introduction
+= 介绍
 :description: about Helidon
 :keywords: helidon, java, microservices, microprofile
 
-== Introduction
+== 介绍
 
-Helidon is a collection of Java libraries for writing microservices.
-There is no unique tooling or deployment model. Your microservice is
-just a Java SE application.
+Helidon是用于开发微服务的一个Java库集合。
+没有唯一的工具或部署模型。你的微服务只是一个简单的Java SE 应用程序。
 
-The foundation of Helidon is composed of three components:
+Helidon的基础由三部分组成：
 
 [PILLARS]
 ====
@@ -35,41 +34,32 @@ The foundation of Helidon is composed of three components:
 .WebServer
 [icon=settings_ethernet]
 --
-A programmatic HTTP API with reactive features, powered by Netty.
+由Netty提供支持并具有响应式功能的编程HTTP API。
 --
 
 [CARD]
 .Config
 [icon=settings]
 --
-A flexible configuration framework with support for multiple sources and formats.
+灵活的配置框架，支持多种源和格式。
 --
 
 [CARD]
 .Security
 [icon=security]
 --
-A tool-chain to handle authentication, authorization and context propagation.
+用于处理身份验证，授权和上下文传播的工具链。
 --
 ====
 
 == MicroProfile
 
-On top of this foundation Helidon supports the MicroProfile family of APIs,
- including JAX-RS and CDI. This means you can choose from one of two
- programming models:
+在此基础之上，Helidon支持MicroProfile系列API，包括JAX-RS和CDI。这意味着您可以从以下两种编程模型中选择一种：
 
- * Helidon SE: a functional programming style that uses the Helidon WebServer,
-               Config and Security APIs directly. This gives you full
-               transparency and control.
- * Helidon MP: a more declarative model that supports the https://microprofile.io[MicroProfile]
-               family of APIs. This will be familiar to Java EE developers.
+ * Helidon SE: 一种函数式编程风格，直接使用Helidon WebServer，Config和Security API。这种方式将控制权全权交给你自己。
+ * Helidon MP: 这是一种对Java EE程序员来说很熟悉的一种方式，此方式支持https://microprofile.io[MicroProfile] API等一系列更具说明性的模型。这对Java EE开发人员来说很熟悉。
 
-Our <<getting-started/02_base-example.adoc,Quickstart Examples>> gets
-you started using either of these programming models.
+我们的<<getting-started/02_base-example.adoc,快速入门示例>>可让您开始使用这些编程模型中的任何一种。
 
-=== Docker and Kubernetes support
-
-The <<getting-started/02_base-example.adoc,Helidon Quickstart Examples>> contain
-support for Docker and Kubernetes. Just follow the examples and you'll have
-a simple service up and running in minutes.
+=== 支持Docker和Kubernetes
+<<getting-started/02_base-example.adoc,Helidon 快速入门示例>>包含对Docker和Kubernetes的支持。只需按照示例操作，您就可以在几分钟内完成并运行简单的服务。

@@ -16,22 +16,22 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Managing Dependencies
+= 管理依赖
 :description: Managing Maven dependencies
 :keywords: bom, dependency management
 
-Helidon provides a "`Bill Of Materials`" (BOM) to manage dependencies.
-This is a special Maven pom file that provides dependency management.
+Helidon提供了"`Bill Of Materials`" (BOM)来管理依赖。
+这是一个提供了管理依赖的的特殊maven的pom文件。
 
-Using the Helidon BOM allows you to use Helidon component dependencies with a single
- version: the Helidon version.
+使用Helidon BOM允许我们通过Helison的版本信息来使用Helidon的组件们。
 
-== The Helidon BOM POM
+== Helidon的BOM和POM
 
-Add the following snippet to your pom.xml file in order to import the Helidon BOM.
+
+将以下代码段添加到pom.xml文件中, 以此来导入Helidon BOM。
 
 [source,xml,subs="attributes+"]
-.Import the Helidon BOM
+.导入Helidon BOM
 ----
 <dependencyManagement>
     <dependencies>
@@ -46,13 +46,12 @@ Add the following snippet to your pom.xml file in order to import the Helidon BO
 </dependencyManagement>
 ----
 
-== Using Helidon Component Dependencies
+== 使用Helidon组件依赖项
 
-Once you have imported the BOM, you can declare dependencies on Helidon components
- without specifying a version.
+导入BOM后，可以在不指定版本的情况下声明Helidon组件的依赖关系。
 
 [source,xml]
-.Component dependency
+.组件依赖
 ----
 <dependency>
     <groupId>io.helidon.webserver</groupId>

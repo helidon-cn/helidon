@@ -20,13 +20,13 @@
 :description: Running Kubernetes on your desktop.
 :keywords: kubernetes
 
-对于开发人员来将，通常会在个人电脑上面运行Kubernetes环境，两种流行的方法是在Docker for Desktop中使用https://kubernetes.io/docs/getting-started-guides/minikube/[Kubernetes Minikube]或https://docs.docker.com/docker-for-mac/kubernetes/[Kubernetes Docker桌面版支持]。
+对于开发人员来将，通常会在个人电脑上面运行Kubernetes环境，两种流行的方法是在Docker for Desktop中使用 https://kubernetes.io/docs/getting-started-guides/minikube/[Kubernetes Minikube] 或 https://docs.docker.com/docker-for-mac/kubernetes/[Kubernetes Docker桌面版支持]。
 
-In this guide we'll use Docker for Desktop.
+在本指南中，我们将使用 https://docs.docker.com/docker-for-mac/kubernetes/[Kubernetes Docker桌面版支持].
 
 == 安装
 
-安装适用于https://docs.docker.com/docker-for-mac/install/[Mac的Docker]或适用于https://docs.docker.com/docker-for-windows/install/[Windows的Docker]。
+安装适用于 https://docs.docker.com/docker-for-mac/install/[Mac的Docker] 或适用于 https://docs.docker.com/docker-for-windows/install/[Windows的Docker]。
 
 要使用Kubernetes支持，您需要获得Edge Channel安装程序。
 

@@ -50,9 +50,9 @@ backend:
         type: "image"
         value: "images/helidon_logo_dark.svg"
       items:
-        - title: "Core documentation"
+        - title: "核心文档"
           items:
-            - title: "About"
+            - title: "关于"
               pathprefix: "/about"
               glyph:
                 type: "icon"
@@ -60,7 +60,7 @@ backend:
               items:
                 - includes:
                     - "about/*.adoc"
-            - title: "Getting Started"
+            - title: "入门文档"
               pathprefix: "/getting-started"
               glyph:
                 type: "icon"
@@ -68,7 +68,7 @@ backend:
               items:
                 - includes:
                     - "getting-started/*.adoc"
-            - title: "Reactive webserver"
+            - title: "响应式 webserver"
               pathprefix: "/webserver"
               glyph:
                 type: "icon"
@@ -76,7 +76,7 @@ backend:
               items:
                 -  includes:
                      - "webserver/*.adoc"
-            - title: "Config"
+            - title: "配置"
               pathprefix: "/config"
               glyph:
                 type: "icon"
@@ -84,7 +84,7 @@ backend:
               items:
                 -  includes:
                      - "config/*.adoc"
-            - title: "Security"
+            - title: "安全"
               pathprefix: "/security"
               glyph:
                 type: "icon"
@@ -100,14 +100,14 @@ backend:
               items:
                 -  includes:
                      - "microprofile/*.adoc"
-            - title: "Javadocs"
+            - title: "Java文档"
               glyph:
                 type: "icon"
                 value: "library_books"
               href: "apidocs/index.html?overview-summary.html"
-        - title: "Additional resources"
+        - title: "附加资源"
           items:
-            - title: "Community"
+            - title: "社区"
               glyph:
                 type: "icon"
                 value: "fa-slack"

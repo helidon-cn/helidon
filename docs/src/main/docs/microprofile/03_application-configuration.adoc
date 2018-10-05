@@ -16,22 +16,20 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Configuring the Application
+= 配置应用程序
 :description: Helidon MicroProfile application configuration
 :keywords: helidon, microprofile, micro-profile
 
-Your application can use the MicroProfile Config or
- Helidon Config (or both). MicroProfile Config offers portability to other
- MicroProfile servers. Helidon Config supports a full tree structure, including repeating
- elements.
+您的应用程序可以使用MicroProfile配置或Helidon配置（或两者）。
+MicroProfile Config为其他MicroProfile服务器提供了可移植性。
+Helidon Config支持完整的树结构，包括重复元素。
 
-== Configuring the Application
+== 配置应用程序
 
-You can inject values that the application can access from both MicroProfile Config and from
-Helidon Config.
+您可以从MicroProfile配置和Helidon配置中注入应用程序可以访问的值。
 
 [source,java]
-.JAX-RS - inject a single config property
+.JAX-RS - 注入一个配置属性
 ----
 @Inject
 public MyResource(@ConfigProperty(name="app.name") String appName) {
@@ -39,11 +37,10 @@ public MyResource(@ConfigProperty(name="app.name") String appName) {
 }
 ----
 
-You can also inject the whole configuration instance, 
-either `io.helidon.config.Config` or
+您还可以注入整个配置实例， `io.helidon.config.Config` 或者
  `org.eclipse.microprofile.config.Config`.
 [source,java]
-.JAX-RS - inject config
+.JAX-RS - 注入配置
 ----
 @Inject
 public MyResource(Config config) {

@@ -28,7 +28,6 @@
 
 * `System.getProperties()`
 * `System.getenv()`
-
 * 所有 `META-INF/microprofile-config.properties` 文件都在类路径下
 
 I在此示例中，配置位于文件中，并包含Helidon配置选项。

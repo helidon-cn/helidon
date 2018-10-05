@@ -16,18 +16,17 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Adding Security
+= 添加安全性
 :description: Helidon MicroProfile security
 :keywords: helidon, microprofile, micro-profile
 
-To add security, such as protecting
-resource methods with authentication, to a MicroProfile application, add the Helidon
- security integration dependency to your project.
+要向MicroProfile应用程序添加安全性（例如使用身份验证保护资源方法），
+请将Helidon安全集成依赖项添加到项目中。
 
-== Maven Coordinates
+== Maven 坐标
 
 [source,xml]
-.Maven Dependency
+.Maven 依赖
 ----
 <dependency>
   <groupId>io.helidon.microprofile</groupId>
@@ -35,21 +34,19 @@ resource methods with authentication, to a MicroProfile application, add the Hel
 </dependency>
 ----
 
-=== Securing a Web Resource
+=== 保护Web资源
 
-For web server static content, see 
-<<microprofile/06_configuration.adoc,Configuration Secrets.>>
+有关Web服务器静态内容，请参阅 <<microprofile/06_configuration.adoc,配置密钥.>> 。
 
-For JAX-RS resources, declare security by adding annotations to a resource class or
- method. 
+对于JAX-RS资源，通过向资源类或方法添加注释来声明安全性。
 
 [source,java]
-.Protected resource method
+.受保护的资源方法
 ----
 @GET
 @io.helidon.security.annot.Authenticated
 @io.helidon.security.annot.Authorized
-// you can also use io.helidon.security.abac.role.RoleValidator.Roles
+// 你也可以用 io.helidon.security.abac.role.RoleValidator.Roles
 @RolesAllowed("admin")
 public String adminResource(@Context io.helidon.security.SecurityContext securityContext) {
   return "you are " + securityContext.getUser();

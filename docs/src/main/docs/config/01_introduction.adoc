@@ -22,65 +22,53 @@
 :description: Helidon config introduction
 :keywords: helidon, config
 
-The config component provides a Java API to load and process
-configuration properties in key/value form into a `Config` object which the
-application can use to retrieve config data.
+`Config` 组件提供了一个Java API，用于将键/值形式的配置属性加载和处理到Config对象中，
+应用程序可以使用该对象来检索配置数据。
 
-== Getting Started
+== 入门
 
-=== Introducing the Config System
-A brief overview of the config system helps clarify its different parts
-and how they work together. Most applications will typically deal with more
-than one of these parts.
+=== 介绍配置系统
+配置系统的简要概述有助于阐明其不同部分以及它们如何协同工作。
+大多数应用程序通常会处理这些部分中的多个部分。
 
 image::config/overview.png["Configuration Overview",align="center"]
 
-The system reads configuration from a _config source_, a physical location (such as a file,
-a URL, or a `String`) which holds config data. Each config source works with a 
-_config parser_ which translates a particular text format (for example, Java properties or YAML)
-into an in-memory tree which represents the configuration's structure and values.
-An optional _polling strategy_ detects and publishes changes to the underlying config source
-so the config source itself or your application can respond.
+系统从配置源，包含配置数据的物理位置（例如文件、URL或字符串）读取配置。
+每个配置源都使用配置解析器，它将特定的文本格式（例如，Java属性或YAML）转换为内存中的树，该树表示配置的结构和值
+一个可选的轮询策略检测并发布对底层配置源的更改，以便配置源本身或您的应用程序可以响应。
 
-Your application uses the `Config` 
-object which results from building that in-memory tree to retrieve config data. 
-The app can navigate explicitly among the nodes in the tree and fetch a node's
-value
+您的应用程序使用 `Config`  对象，该对象是通过构建内存中的树来检索配置数据的结果。
+应用程序可以在树中的节点之间显式获取节点的值。
+
 [source,java]
 ----
 Optional<String> pageSize = Config.get("web").get("page-size").value();
 ----
-or it can address a node in the tree using the config key's dotted name 
+或者它可以使用配置键的点名称来寻址树中的节点
 [source,java]
 ----
 int pageSize = Config.get("web.page-size").asInt();
 ----
-As part of
-retrieving a value from a node, the config system applies _config filters_
-which can change what values are returned for selected keys. 
+作为从节点检索值的一部分，配置系统应用配置过滤器，该过滤器可以更改为所选键返回的值。
 
-The `Config` object lets your application retrieve config data as:
+`Config` 对象允许您的应用程序检索配置数据：
 
-* an `Optional<String>` value _from a single node_,
-* the `String` value _from a single node_ interpreted as a basic Java type 
-(primitive or simple object) already known to the config system (such as
-a `boolean` or a `Double`), or
-* a complex Java type _from a subtree_ of the config tree.
+* 从单节点获取  `Optional<String>` 值,
+* 来自单个节点的String值被解释为配置系统已知的基本Java类型（原始或简单对象）（例如布尔值或Double）, 或者
+* 来自配置树的子树的复杂Java类型。
 +
-The config system automatically knows how to return `List` and `Map` complex types, 
-and you can provide _config mappers_ to convert a config subtree to whatever
-Java types your application needs.
+配置系统自动知道如何返回 `List` 和 `Map` 复杂类型，
+并且您可以提供配置映射器以将配置子树转换为您的应用程序所需的任何Java类型。
 
-=== Your First Config Application
-An easy way to start with the link:{javadoc-base-url-api}/Config.html[Config] API
-is to follow these four steps:
+=== 您的第一个配置应用程序
+从 link:{javadoc-base-url-api}/Config.html[Config] API开始的简单方法是遵循以下四个步骤：
 
-1. <<maven-coords,add config-related dependencies to your `pom.xml`>>
-2. <<update-module-info, revise your `module-info.java` to refer to config (if you are using Java 9)>>
-3. <<create-simple-config-props, create a simple config properties file>>
-4. <<Config-Basics-DefaultConfig, retrieve and use the default `Config` from your app>>
+1. <<maven-coords,将与配置相关的依赖项添加到 `pom.xml` 中>>
+2. <<update-module-info, 修改你的 `module-info.java` 以引用config（如果你使用的是Java 9）>>
+3. <<create-simple-config-props, 创建一个简单的配置属性文件>>
+4. <<Config-Basics-DefaultConfig, 从您的应用中检索并使用默认配置>>
 
-==== Add Maven Dependency on Config [[maven-coords]]
+==== 在配置上添加Maven依赖项 [[maven-coords]]
 [source,xml]
 .Config Dependency in `pom.xml`
 ----
@@ -93,17 +81,17 @@ is to follow these four steps:
 </dependencies>
 ----
 
-==== Update `module-info.java` [[update-module-info]]
-If you are using Java 9 then create or update the `module-info.java` file for your application:
+==== 更新 `module-info.java` [[update-module-info]]
+如果您使用的是Java 9，则为您的应用程序创建或更新 `module-info.java` 文件：
 [source,java]
-.Config Dependency in `module-info.java`
+.创建简单的配置属性文件
 ----
 module myModule {
     requires io.helidon.config;
 }
 ----
 
-==== Create simple Config Properties File [[create-simple-config-props]]
+==== 创建简单的配置属性文件 [[create-simple-config-props]]
 [source]
 .Example `src/main/resources/application.properties` config file
 ----
@@ -119,7 +107,7 @@ origin = props
 java.home=homeFromProps # will be ignored
 ----
 
-==== Write Code using the Default Config [[Config-Basics-DefaultConfig]]
+==== 使用默认配置编写代码 [[Config-Basics-DefaultConfig]]
 
 [source,java]
 .Create and Use Default `Config` from Java
@@ -143,12 +131,11 @@ import io.helidon.config.Config; // <1>
                 config.get("origin").asString(),
                 config.get("java.home").asString()));
 ----
-<1> Import `Config`.
-<2> Create the root of the `Config` tree from the default sources.
-<3> Retrieve various values by their dotted names and decode them as the appropriate 
-Java types.
+<1> 导入 `Config`
+<2> 从默认源创建配置树的根
+<3> 通过点名称检索各种值，并将它们解码为适当的Java类型。
  
-When you build and run your project, the output will look like this:
+在构建和运行项目时，输出将如下所示：
 [source]
 ----
 greeting is Hello
@@ -160,29 +147,25 @@ origin is props
 java.home is /Library/Java/JavaVirtualMachines/jdk-10.0.1.jdk/Contents/Home
 ----
 
-===== Config Sources for the Default Config [[config-sources-default-config]]
-The default config uses the following config sources, listed here from most to least important:
+===== 配置默认配置的源 [[config-sources-default-config]]
+默认配置使用以下配置源，此处列出从最重要到次要：
 
-. Java system properties
-. Environment variables
-. `application.properties`, if on the classpath.
+. Java系统属性
+. 环境变量
+. `application.properties`, 如果存在于类路径
 
-The priority (most to least important) means that if a given config key appears in
-more than one source, the value assigned in a more important source overrules the
-value from a less important source.
+优先级（从最重要到最不重要）意味着如果给定的配置键出现在多个源中，
+则在更重要的源中分配的值会否决来自不太重要的源的值。
 
-Verify this by noting that the program has displayed your actual `java.home` which
-Java set as a system property, not the value set in the example `application.properties`
-file.
+通过注意程序已经显示您的实际 `java.home` 来验证这一点，
+Java将其设置为系统属性，而不是示例 `application.properties` 文件中设置的值。
 
-===== Built-in Support for Config Formats [[built-in-formats]]
-If you add additional Helidon config maven artifacts to your dependencies, then the
-config system can read formats other than Java properties format and the default
-configuration will search for other `application` file types 
-in the following order. Note that the default configuration _stops_ once it finds
-one of the files below; it _does not_ merge all such files it can find.
+===== 内置支持配置格式 [[built-in-formats]]
+如果向依赖项添加其他Helidon配置maven工件，
+则配置系统可以读取Java属性格式以外的格式，默认配置将按以下顺序搜索其他 `application` 文件类型。
+请注意，默认配置会在找到以下某个文件后停止;它不会合并它可以找到的所有这些文件。
 
-.Default Config Files (most to least important)
+.默认配置文件 (most to least important)
 |===
 |Source |Helidon maven artifact ID (group ID: `io.helidon.config`) |Notes
 
@@ -192,37 +175,33 @@ one of the files below; it _does not_ merge all such files it can find.
 |`application.properties` |`helidon-config` |Java properties format
 |===
 
-== Next Steps
-Although the default configuration is very simple to use, your
-application can take as much control as it needs over
+== 下一步
+尽管默认配置使用起来非常简单，但您的应用程序可以根据需要进行尽可能多的控制
 
-* loading configuration data,
-* accessing the data once loaded, and
-* extending and modifying the behavior of the config system.
+* 加载配置数据，
+* 加载后访问数据，
+* 并扩展和修改配置系统的行为。
 
-You do this by:
+通过以下步骤:
 
-* creating and invoking methods on a `Config.Builder` object to construct a `Config` instance
+* 在 `Config.Builder` 对象上创建和调用方法以构造 `Config` 实例
 +
-Using a builder, the application can control everything about how the config
-system creates the resulting `Config` instance: config sources, parsers, polling strategy,
-filters, overrides, mappers, whether or not environment variables and Java
-system properties serve as config sources. The JavaDoc explains how to use the 
-link:{javadoc-base-url-api}/Config.Builder.html[`Config.Builder`].
+使用构建器，应用程序可以控制有关配置系统如何创建生成的Config实例的所有内容:
+配置源，解析器，轮询策略，过滤器，覆盖，映射器，环境变量和Java系统属性是否用作配置源。
+JavaDoc解释了如何使用link:{javadoc-base-url-api}/Config.Builder.html[`Config.Builder`]。
+
+.
 +
-or
-* creating a <<config/06_advanced-configuration.adoc#Config-Advanced-metaconfig,meta-configuration>>
-file on the runtime classpath to control how the config system prepares the 
-default configuration.
+或者
+* 在运行时类路径上创建<<config/06_advanced-configuration.adoc#Config-Advanced-metaconfig,元配置>>文件，以控制配置系统如何准备默认配置。
 
-Once created, the `Config` object provides many methods the application can use to 
-retrieve config data as various Java types. See the link:{javadoc-base-url-api}/Config.html[`Config`]
-JavaDoc for complete details.
+创建后， `Config`  对象提供了许多方法，
+应用程序可以使用这些方法将配置数据检索为各种Java类型。有关完整的详细信息，
+请参阅 link:{javadoc-base-url-api}/Config.html[`Config`] JavaDoc。
 
-The links in the following tables lead you to more information about various 
-other config topics.
+下表中的链接将引导您获取有关各种其他配置主题的更多信息。
 
-.Controlling How Config is Loaded
+.控制如何加载配置
 |===
 | Topic |Documentation
 
@@ -235,7 +214,7 @@ other config topics.
 | How to deal with loading errors |<<config/02_config-sources.adoc#retry,Config retry policies>>
 |===
 
-.Accessing Configuration Data
+.访问配置数据
 |===
 | Topic |Documentation
 
@@ -243,7 +222,7 @@ other config topics.
 | How to navigate config trees |<<config/03_hierarchical-features.adoc,Navigation>>
 |===
 
-.Extending and Fine-tuning the Config System
+.扩展和微调配置系统
 |===
 | Topic |Documentation 
 

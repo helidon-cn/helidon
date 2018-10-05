@@ -16,26 +16,24 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Microprofile Introduction
+= Microprofile 介绍
 :description: Helidon Microprofile introduction
 :keywords: helidon, microprofile, micro-profile
 
-MicroProfile is a platform definition that is familiar to Java EE developers. If you have experience with JAX-RS, JSON-P, and CDI, you 
-may prefer to use this model.
+MicroProfile是Java EE开发人员熟悉的平台定义。如果您有使用JAX-RS，JSON-P和CDI的经验，则可能更喜欢使用此模型。
 
-To extend the functionality of your MicroProfile application, you might also decide to use the Helidon core APIs, especially for 
-configuration and security.
+要扩展MicroProfile应用程序的功能，您可能还决定使用Helidon核心API，尤其是配置和安全性。
 
-== Getting Started with Helidon MicroProfile
+== Helidon MicroProfile入门
 
-Complete these tasks to get started with your MicroProfile application.
+开始使用MicroProfile应用程序，需要完成以下任务：
 
-=== Maven Coordinates
+=== Maven 依赖
 
-Declare the following dependency in your project:
+在项目中声明以下依赖项：
 
 [source,xml]
-.Maven Dependency
+.Maven 依赖
 ----
 <dependency>
   <groupId>io.helidon.microprofile.bundles</groupId>
@@ -43,12 +41,12 @@ Declare the following dependency in your project:
 </dependency>
 ----
 
-=== Project files
+=== 项目文件
 
-Create a JAX-RS Resource class with at least one resource method.
+使用至少一个资源方法创建JAX-RS Resource类。
 
 [source,java]
-.Sample JAX-RS Resource Class
+.JAX-RS 资源类举例
 ----
 @Path("/")
 @RequestScoped
@@ -61,9 +59,9 @@ public class HelloWorldResource {
 }
 ----
 
-And create a JAX-RS application.
+并创建一个JAX-RS应用程序
 [source,java]
-.Sample JAX-RS Application
+.JAX-RS Application举例
 ----
 @ApplicationScoped
 @ApplicationPath("/")
@@ -77,8 +75,8 @@ public class HelloWorldApplication extends Application {
 }
 ----
 
-Add `beans.xml` in `src/main/resources/META-INF` so
-the CDI implementation can pick up your classes.
+在 `src/main/resources/META-INF` 中添加 `beans.xml` ，以便CDI实现可以获取您的类。
+
 [source,xml]
 .beans.xml
 ----
@@ -86,30 +84,26 @@ the CDI implementation can pick up your classes.
 <beans/>
 ----
 
-As a last step, add a main method to your application (or a dedicated Main class)
- to start everything up.
+最后一步，在应用程序（或专用的Main类）中添加一个main方法来启动所有操作。
 
 [source,java]
-.Sample JAX-RS Application
+.JAX-RS 应用举例
 ----
 public static void main(String[] args) {
     io.helidon.microprofile.server.Main.main(args);
 }
 ----
 
-Run the main class. The server will start on port 7001 and serve your
- resources.
+运行主类。服务器将从端口7001启动并为您的资源提供服务。
 
-=== Adding Jandex
+=== 添加 Jandex
 
-Jandex is an indexing tool for Weld (CDI implementation) that helps speed up
-the boot time of an application.
+Jandex是Weld（CDI实现）的索引工具，有助于加快应用程序的启动时间。
 
-To use Jandex, configure a Maven plugin that adds the index to your
- JAR file and a dependency on Jandex.
+要使用Jandex，请配置一个Maven插件，该插件将索引添加到JAR文件并依赖于Jandex。
 
 [source,xml]
-.jandex dependency
+.jandex 依赖
 ----
 <dependency>
     <groupId>org.jboss</groupId>
@@ -119,7 +113,7 @@ To use Jandex, configure a Maven plugin that adds the index to your
 ----
 
 [source,xml]
-.jandex plugin configuration
+.jandex 插件配置
 ----
 <build>
     <plugins>

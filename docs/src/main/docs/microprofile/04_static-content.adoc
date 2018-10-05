@@ -16,17 +16,16 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Serving Static Content
+= 提供静态内容
 :description: Helidon Microprofile static content
 :keywords: helidon, microprofile, micro-profile
 
-You can serve static content from a location in a file system
- or from the classpath.
+您可以从文件系统中的位置或类路径提供静态内容。
 
-== Serving Static Content
+== 提供静态内容
 
 [source,properties]
-.META-INF/microprofile-config.properties - File system static content
+.META-INF/microprofile-config.properties - 文件系统静态内容
 ----
 # Location of content on file system
 server.static.path.location=/var/www/html
@@ -37,7 +36,7 @@ server.static.classpath.welcome=resource.html
 ----
 
 [source,properties]
-.META-INF/microprofile-config.properties - Classpath static content
+.META-INF/microprofile-config.properties - 类路径静态内容
 ----
 # src/main/resources/WEB in your source tree
 server.static.classpath.location=/WEB

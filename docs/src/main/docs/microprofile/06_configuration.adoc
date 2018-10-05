@@ -16,26 +16,24 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-= Configuration Secrets
+= 配置密钥
 :description: Helidon MicroProfile configuration secrets
 :keywords: helidon, microprofile, micro-profile
 
-When security requires a configuration with repeating complex elements, use Helidon
- Config. 
- 
-This example configures a basic authentication provider and
- protects static content on the web server. It also includes annotations in Jersey.
+当安全性需要具有重复复杂元素的配置时，请使用Helidon Config。
 
-== Protecting Static Content
+此示例配置基本身份验证提供程序并保护Web服务器上的静态内容。它还包括Jersey的注释。
+
+== 保护静态内容
 
 [source,yaml]
 .application.yaml
 ----
 security:
   providers:
-    # Attribute based access control, validates roles
+    # 基于属性的访问控制，验证角色
     - abac:
-    # HTTP Basic authentication provider
+    # HTTP基本认证
     - http-basic-auth:
         realm: "helidon"
         users:
@@ -47,21 +45,19 @@ security:
             roles: ["user"]
           - login: "john"
             password: "password"
-  # Protect static content - require authenticated user
+  # 保护静态内容 - 需要经过身份验证的用户
   web-server:
     paths:
       - path: "/static-cp[/{*}]"
         authenticate: true
 ----
 
-=== Protecting Configuration Secrets 
+=== 保护配置密钥
 
-If you don't provide an explicit instance of Helidon Config to a MicroProfile server, then the 
-secure config filter **is enabled by default**. However, if you don't configure it, the secure config filter
- only supports a template for aliasing that checks that no clear text passwords are
- present (template ${CLEAR=...}.
+如果未向MicroProfile服务器提供Helidon Config的显式实例，则**默认情况下会启用**安全配置筛选器。
+但是，如果不进行配置，则安全配置筛选器仅支持别名模板，以检查是否存在明文密码 (template ${CLEAR=...}.
 
-To add the secure config filter:
+添加安全配置筛选器：
 
 [source,java]
 .Add secure config filter
@@ -71,16 +67,15 @@ Config helidonConfig = Config.builder()
     .build();
 ----
 
-Put encrypted values into your
- configuration file so that it can be stored in a public repository with no danger of
- exposing the secret values. Be sure to use a strong and secret password.
+将加密值放入配置文件中，以便将其存储在公共存储库中，而不会暴露密钥值。
+请务必使用强密密码。
 
-The supported templates are:
+支持的模板是：
 
-.Templates
+.模版
 [cols="1,3,5"]
 |===
-|Template |Description |Example
+|模版 |描述 |举例
 
 |${CLEAR=...}
 |Secret in clear text (for testing) - `requiresEncryption` must be disabled
@@ -99,78 +94,63 @@ The supported templates are:
 |${ALIAS=someOtherKey}
 |===
 
-=== Requiring encryption 
+=== 需要加密
 
-The secure config filter has an option that defines whether
-encryption is required or not. If it's set to true, which is the default, then:
- 
-* Configuration values with ${CLEAR=...} template will cause an exception when
- requested.
-* The filter fails during bootstrap if `security.config.aes.insecure-passphrase`
- is configured.
+安全配置过滤器有一个选项，用于定义是否需要加密。如果它设置为true（默认值），那么：
 
-=== Using symmetric encryption (AES)
-Symmetric encryption is based on a shared secret that is known by the person
-encrypting the value and is also provided to the application.
+* 使用$ {CLEAR = ...}模板的配置值将在请求时导致异常。
+* 如果配置了 `security.config.aes.insecure-passphrase` ，则在引导期间过滤器会失败。
 
-==== Encrypting values (AES)
+=== 使用对称加密（AES）
+对称加密基于加密人员已知的public密钥，并且还提供给应用程序。
 
-The secure config filter provides a Main class `io.helidon.security.tools.config.Main`
- that can be used to encrypt values.
+==== 加密值（AES）
+
+安全配置筛选器提供了可用于加密值的主类：`io.helidon.security.tools.config.Main`
 
 [source,bash]
-.Encrypt secret `secretToEncrypt` using shared secret `masterPassword`
+.使用共享密钥  `masterPassword` 加密秘密 `secretToEncrypt`.
 ----
 java io.helidon.security.tools.config.Main aes masterPassword secretToEncrypt
 ----
 
-The tool returns the string to be entered into configuration as the value of a
- property.
+该工具将要输入的字符串作为属性值返回到配置中。
 
-==== Shared Secret (AES)
+==== 共享密钥（AES）
 
-You can provide a shared secret in a couple of ways:
+您可以通过以下几种方式提供共享密钥：
 
-- in configuration - for testing/demo purposes only - key is
- `security.config.aes.insecure-passphrase`
-- as an environment variable - `SECURE_CONFIG_AES_MASTER_PWD`
+- 在配置中 - 仅用于测试/演示目的 - key是  `security.config.aes.insecure-passphrase`
+- 作为环境变量 - `SECURE_CONFIG_AES_MASTER_PWD`
 
-=== Using asymmetric encryption (RSA)
-This approach is based on a pair of keys: a public key which is known to anybody, and a
- private key which is known to a limited set of parties (usually a single person or
- process). 
- For asymmetric encryption, the following is true:
+=== 使用非对称加密（RSA）
+这种方法基于一对密钥，任何人都知道的公钥，以及有限的一方知道的私钥（通常是一个人或一个过程）。对于非对称加密，以下情况属实：
 
-- a value encrypted by a public key can only be decrypted by the private key
-- a value encrypted by a private key can only be decrypted by the public key
+- 由公钥加密的值只能由私钥解密
+- 由私钥加密的值只能由公钥解密
 
-When using the secure config filter, you should encrypt the configuration values 
-using the public key, and give the application process access to the 
-private key to decrypt the values.
+使用安全配置筛选器时，应使用公钥加密配置值，并授予应用程序进程访问私钥以解密值的权限。
 
-==== Encrypting values (RSA)
-The secure config filter provides a Main class `io.helidon.security.tools.config.Main`
- that can be used to encrypt values.
+==== 加密值（RSA）
+安全配置筛选器提供了可用于加密值的主类：`io.helidon.security.tools.config.Main`
 
 [source,bash]
-.Encrypt secret `secretToEncrypt` using public certificate in a keystore
+.使用密钥库中的公共证书加密密码 `secretToEncrypt`
 ----
 java io.helidon.security.tools.config.Main rsa /path/to/keystore.p12 keystorePassword publicCertAlias secretToEncrypt
 ----
 
-The tool returns the string to be entered into configuration as the value of a
- property.
+该工具将要输入的字符串作为属性值返回到配置中。
 
-==== Configure secure config filter (RSA)
+==== 配置安全配置过滤器（RSA）
 
-You can configure the properties of a private key. These
- keys are prefixed with `security.config.rsa`
+您可以配置私钥的属性。这些密钥以 `security.config.rsa` 为前缀。
 
 
-.RSA Configuration Options: Keystore
+.RSA配置选项：密钥库
 [cols="2,2,3,5"]
 |===
-|What |Configuration Key |Environment Variable|Description
+|What |配置 Key |环境变量|
 
 |Keystore path
 |`keystore-path`
@@ -193,10 +173,10 @@ You can configure the properties of a private key. These
 |Password for the keystore (and private key).
 |===
 
-.RSA Configuration Options: PEM (PKCS#8) private key
+.RSA配置选项：PEM（PKCS＃8）私钥
 [cols="2,2,3,5"]
 |===
-|What |Configuration Key |Environment Variable|Description
+|What |配置 Key |环境变量|描述
 
 |Path
 |`pem-key-path`
@@ -215,7 +195,7 @@ You can configure the properties of a private key. These
 |===
 
 [source,yaml]
-.Example yaml configuration
+.yaml 配置举例
 ----
 security.config:
   # Set to true for production - if set to true, clear text passwords will cause failure

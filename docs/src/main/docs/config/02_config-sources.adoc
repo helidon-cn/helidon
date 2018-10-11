@@ -51,41 +51,37 @@
 
 有关配置源的一些更复杂的方面的详细信息，请参阅 <<config/06_advanced-configuration.adoc,高级主题>> 页面。
 
-== Config Parsers [[parsers]]
-When it reads configuration text from sources, the config system uses config parsers 
-to translate that text into the in-memory data structures representing that configuration. 
-The config system includes several built-in parsers, such as for the Java properties, YAML, JSON, and HOCON formats. See <<config/01_introduction.adoc#built-in-formats,this section in
-the introduction>> for
-how to change your `pom.xml` to make parsers for those formats available to your 
-application. Then your application can invoke the 
-link:{javadoc-base-url-api}/Config.Builder.html#addParser-io.helidon.config.spi.ConfigParser-[config builder's `addParser`] method
-so that builder will use the parsers you choose.
+== 配置解析器
+当它从源读取配置文本时，配置系统使用配置解析器将该文本转换为表示该配置的内存数据结构。
+配置系统包括几个内置解析器，例如Java属性，YAML，JSON和HOCON格式。
+请参阅<<config/01_introduction.adoc#built-in-formats,介绍中的此部分>>，了解如何更改 `pom.xml` 以使应用程序可以使用这些格式的解析器。
+之后，您的应用程序可以调用link:{javadoc-base-url-api}/Config.Builder.html#addParser-io.helidon.config.spi.ConfigParser-[配置构建器 `addParser`]方法，构建器将使用您选择的解析器。
 
-You can extend the system with custom parsers of your own. Implement the link:{javadoc-base-url-api}/spi/ConfigParser.html[`ConfigParser`] interface, then construct a `Config.Builder` using the `addParser` method, passing an instance of your customer parser. Invoke one of the `sources` methods to include a source that uses the custom format and then build the `Config` object.
+您可以使用自己的自定义解析器扩展系统。
+实现 `ConfigParser` 接口，然后使用 `addParser` 方法构造 `Config.Builder`，传递客户解析器的实例。
+调用其中一个 `sources` 方法以包含使用自定义格式的源，然后构建 `Config对象。
 
-== Detecting and Responding to Changes in Config Data
-Each `Config` object which the config system returns to your application is
-immutable; even if the information in one of the underlying config sources changes, an in-memory data structure built from the earlier
-content remains unchanged.
+== 检测和响应配置数据的变化
+配置系统返回给您的应用程序的每个 `Config` 对象都是不可变的。即使其中一个底层配置源中的信息发生更改，从早期内容构建的内存数据结构也保持不变。
 
-Even so, the config system allows your application to learn when such underlying changes in the data occur and respond accordingly. The <<config/05_mutability-support.adoc,mutability>> section explains this in detail, and the link:{javadoc-base-url-api}/PollingStrategies.html[`PollingStrategies`] JavaDoc describes the built-in implementations. You can, of course, write your own by implementing the link:{javadoc-base-url-api}/spi/PollingStrategy.html[`PollingStrategy`] interface. On a config source builder invoke `pollingStrategy` with an instance of your custom strategy and then invoke `build` to create the `ConfigSource`.
+即便如此，配置系统允许您的应用程序了解数据中发生的这些潜在变化何时发生并做出相应响应。<<config/05_mutability-support.adoc,可变性>>部分详细解释了这一点，link:{javadoc-base-url-api}/PollingStrategies.html[`PollingStrategies`] Java 文档描述了其内置实现。
 
-== Dealing with Loading Errors: Retry Policies [[retry]]
-Config sources, especially those that depend on fallible mechanisms such as the network or a shared file system, might fail to load during momentary outages. The config system allows you to build resiliency into your application's use of configuration that relies on such technologies. 
+== 处理加载错误：重试策略 [[retry]]
+配置源，尤其是那些依赖于易错机制（如网络或共享文件系统）的源，可能无法在短暂停机期间加载。
+配置系统允许您为应用程序使用依赖于此类技术的配置构建弹性。
 
-When your application builds a `ConfigSource` it can specify a _retry policy_. When the config system needs to load data from that source it delegates the load operation to that retry policy. That policy is responsible not only for loading the data but also for detecting errors during loading and implementing the algorithm for deciding when and how many times to retry a failed load before reporting a failure back to your application.
+当您的应用程序构建 `ConfigSource` 时，可以指定 _重试策略_ 。该策略不仅负责加载数据，还负责在加载期间检测错误并实施算法，以便在将故障报告回应用程序之前决定重试失败负载的次数和次数。
 
-The config system includes two predefined retry policies:
+配置系统包括两个预定义的重试策略：
 
-.Predefined Retry Policies
+.预定义的重试策略
 |===
-|Policy | Summary
+|策略 | 总结
 
-|"just call" (default) |asks the config source to load the data with no retry
-|"repeat" |performs a settable number of time-based retries, reporting failure only after all available retries have failed
+|"just call" (default) |要求配置源加载数据而不重试
+|"repeat" |执行可设置数量的基于时间的重试，仅在所有可用重试失败后报告失败
 |===
+有关这些内置重试策略的完整详细信息，link:{javadoc-base-url-api}/RetryPolicies.html[`RetryPolicies`] JavaDoc。
 
-See the link:{javadoc-base-url-api}/RetryPolicies.html[`RetryPolicies`] JavaDoc for complete details on these built-in retry policies.
-
-You can devise your own policy. Implement the link:{javadoc-base-url-api}/spi/RetryPolicy.html[`RetryPolicy`] interface. Then pass an instance of your policy implementation to the config source builder's `retryPolicy` method.
+您可以制定自己的策略。实现link:{javadoc-base-url-api}/spi/RetryPolicy.html[`RetryPolicy`]接口。然后将策略实现的实例传递给配置源构建器的 `retryPolicy` 方法。
 
